@@ -30,7 +30,8 @@ public class TorneoTest
             LocalDate.now().plusMonths(3),
             (byte) 24,
             (byte) 0,
-            (byte) 0
+            (byte) 0,
+            TipoTorneo.LOCAL
         );
 
         assertEquals("Copa Mundo", torneo.getNombre());
@@ -40,6 +41,7 @@ public class TorneoTest
         assertEquals((byte) 24, torneo.getNumeroMaximoParticipantes());
         assertEquals((byte) 0, torneo.getLimiteEdad());
         assertEquals((byte) 0, torneo.getValorInscripcion());
+        assertEquals(TipoTorneo.LOCAL, torneo.getTipoTorneo());
 
         LOG.info("Fin prueba de datos completos...");
     }
@@ -52,7 +54,7 @@ public class TorneoTest
     {
         LOG.info("inicio de prueba datos nulos...");
 
-        assertThrows(Throwable.class, () -> new Torneo(null, null, null, null, (byte) 24, (byte) 0, (byte) 0));
+        assertThrows(Throwable.class, () -> new Torneo(null, null, null, null, (byte) 24, (byte) 0, (byte) 0, TipoTorneo.LOCAL));
 
         LOG.info("Fin prueba de datos nulos...");
     }
@@ -73,7 +75,8 @@ public class TorneoTest
                 LocalDate.now().plusMonths(3),
                 (byte) -24,
                 (byte) 0,
-                (byte) 0
+                (byte) 0,
+                TipoTorneo.LOCAL
             );
         });
 
@@ -96,7 +99,8 @@ public class TorneoTest
                 LocalDate.now().plusMonths(3),
                 (byte) 24,
                 (byte) -1,
-                (byte) 0
+                (byte) 0,
+                TipoTorneo.LOCAL
             );
         });
 
@@ -119,7 +123,8 @@ public class TorneoTest
                 LocalDate.now().plusMonths(3),
                 (byte) 24,
                 (byte) 0,
-                (byte) -1
+                (byte) -1,
+                TipoTorneo.LOCAL
             );
         });
 
@@ -142,7 +147,8 @@ public class TorneoTest
                 LocalDate.now().plusMonths(7),
                 (byte) 24,
                 (byte) 0,
-                (byte) 0
+                (byte) 0,
+                TipoTorneo.LOCAL
             );
         });
 
@@ -165,10 +171,35 @@ public class TorneoTest
                 LocalDate.now().plusDays(15),
                 (byte) 24,
                 (byte) 0,
-                (byte) 0
+                (byte) 0,
+                TipoTorneo.LOCAL
             );
         });
 
         LOG.info("Fin de prueba: fecha de cierre de inscripciones previa...");
+    }
+
+    /**
+     * verificar que la clase Torneo no permita tipos de torneo nulos
+     */
+    @Test
+    public void tipoTorneoNulo()
+    {
+        LOG.info("inicio de prueba: tipo de torneo nulo...");
+
+        assertThrows(Throwable.class, () -> {
+            new Torneo(
+                "Copa Mundo", 
+                LocalDate.now().plusMonths(5),
+                LocalDate.now().plusMonths(1),
+                LocalDate.now().plusDays(15),
+                (byte) 24,
+                (byte) 0,
+                (byte) 0,
+                null
+            );
+        });
+
+        LOG.info("Fin de prueba: tipo de torneo nulo...");
     }
 }

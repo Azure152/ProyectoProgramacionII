@@ -40,6 +40,11 @@ public class Torneo
     private final int valorInscripcion;
 
     /**
+     * tipo del torneo
+     */
+    private final TipoTorneo tipoTorneo;
+
+    /**
      * crea una instancia de Torneo
      * 
      * @param nombre nombre del torneo
@@ -57,7 +62,8 @@ public class Torneo
         LocalDate fechaCierreInscripciones,
         byte numeroMaximoParticipantes,
         byte limiteEdad,
-        int valorInscripcion
+        int valorInscripcion,
+        TipoTorneo tipoTorneo
     ) {
         assert nombre != null;
         assert fechaInicioTorneo != null;
@@ -66,6 +72,7 @@ public class Torneo
         assert numeroMaximoParticipantes > 0;
         assert limiteEdad >= 0;
         assert valorInscripcion >= 0;
+        assert tipoTorneo != null;
         assert fechaInicioTorneo.isAfter(LocalDate.now());
         assert fechaInicioInscripciones.isBefore(fechaInicioTorneo);
         assert fechaCierreInscripciones.isAfter(fechaInicioInscripciones) && fechaCierreInscripciones.isBefore(fechaInicioTorneo);
@@ -77,6 +84,7 @@ public class Torneo
         this.numeroMaximoParticipantes = numeroMaximoParticipantes;
         this.limiteEdad = limiteEdad;
         this.valorInscripcion = valorInscripcion;
+        this.tipoTorneo = tipoTorneo;
     }
 
     /**
@@ -189,5 +197,15 @@ public class Torneo
     public int getValorInscripcion()
     {
         return valorInscripcion;
+    }
+
+    /**
+     * obtiene el tipo de torneo
+     * 
+     * @return tipo de torneo
+     */
+    public TipoTorneo getTipoTorneo()
+    {
+        return tipoTorneo;
     }
 }
