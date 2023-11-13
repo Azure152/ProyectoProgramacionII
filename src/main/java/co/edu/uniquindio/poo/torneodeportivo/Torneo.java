@@ -12,17 +12,17 @@ public class Torneo
     /**
      * fecha de inicio del torneo
      */
-    private final LocalDate fechaInicioTorneo;
+    private LocalDate fechaInicioTorneo;
 
     /**
      * fecha de inicio de las incripciones
      */
-    private final LocalDate fechaInicioInscripciones;
+    private LocalDate fechaInicioInscripciones;
 
     /**
      * fecha de cierre de las incripciones
      */
-    private final LocalDate fechaCierreInscripciones;
+    private LocalDate fechaCierreInscripciones;
 
     /**
      * numero maximo de participantes
@@ -77,6 +77,48 @@ public class Torneo
         this.numeroMaximoParticipantes = numeroMaximoParticipantes;
         this.limiteEdad = limiteEdad;
         this.valorInscripcion = valorInscripcion;
+    }
+
+    /**
+     * establece la fecha de inicio del torneo
+     * 
+     * @param inicioTorneo la nueva fecha de inicio del torneo
+     */
+    public void setFechaInicioTorneo(LocalDate inicioTorneo)
+    {
+        assert inicioTorneo != null;
+        assert inicioTorneo.isAfter(LocalDate.now());
+        assert inicioTorneo.isAfter(this.fechaCierreInscripciones);
+
+        this.fechaInicioTorneo = inicioTorneo;
+    }
+
+    /**
+     * establece la fecha de inicio para las incripciones
+     * 
+     * @param inicioInscripciones nueva fecha de inicio de inscripciones
+     */
+    public void setFechaInicioInscripciones(LocalDate inicioInscripciones)
+    {
+        assert inicioInscripciones != null;
+        assert inicioInscripciones.isBefore(this.fechaInicioTorneo);
+        assert inicioInscripciones.isBefore(this.fechaCierreInscripciones);
+
+        this.fechaInicioInscripciones = inicioInscripciones;
+    }
+
+    /**
+     * establece la fecha de cierre para las incripciones
+     * 
+     * @param cierreInscripciones nueva fecha de cierre de inscripciones
+     */
+    public void setFechaCierreInscripciones(LocalDate cierreInscripciones)
+    {
+        assert cierreInscripciones != null;
+        assert cierreInscripciones.isAfter(this.fechaInicioInscripciones);
+        assert cierreInscripciones.isBefore(this.fechaInicioTorneo);
+
+        this.fechaCierreInscripciones = cierreInscripciones;
     }
 
     /**
