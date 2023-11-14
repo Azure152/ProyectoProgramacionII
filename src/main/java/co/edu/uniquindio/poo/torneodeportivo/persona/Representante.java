@@ -1,16 +1,17 @@
 package co.edu.uniquindio.poo.torneodeportivo.persona;
 
-public record Representante(
-    String nombre,
-    String apellido,
-    String email,
-    String celular
-) {
-    public Representante 
+public class Representante extends Persona
+{
+    /**
+     * contruye una instancia de representante
+     * 
+     * @param nombre nombre(s) del representante
+     * @param apellido apellidos(s) del representante
+     * @param email direccion de correo electronico
+     * @param celular numero de telefono/celular
+     */
+    public Representante(String nombre, String apellido, String email, String celular)
     {
-        assert nombre != null;
-        assert apellido != null;
-        assert email != null;
-        assert celular != null;
+        super(nombre, apellido, email, celular);
     }
 }

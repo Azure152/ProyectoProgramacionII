@@ -10,7 +10,7 @@ import java.util.logging.Logger;
 import org.junit.jupiter.api.Test;
 
 import co.edu.uniquindio.poo.torneodeportivo.participante.Equipo;
-import co.edu.uniquindio.poo.torneodeportivo.persona.Representante;
+import co.edu.uniquindio.poo.torneodeportivo.persona.Persona;
 
 public class EquipoTest
 {
@@ -38,7 +38,7 @@ public class EquipoTest
             TipoTorneo.LOCAL
         );
 
-        var representante = new Representante("Robinson", "Pulgarin", "rpulgarin@email.com", "6067359300");
+        var representante = new Persona("Robinson", "Pulgarin", "rpulgarin@email.com", "6067359300");
         var equipo = new Equipo("Uniquindio", representante);
 
         torneo.registrarEquipo(equipo);
@@ -70,7 +70,7 @@ public class EquipoTest
             TipoTorneo.LOCAL
         );
 
-        var representante = new Representante("Robinson", "Pulgarin", "rpulgarin@email.com", "6067359300");
+        var representante = new Persona("Robinson", "Pulgarin", "rpulgarin@email.com", "6067359300");
         var equipo = new Equipo("Uniquindio", representante);
         var equipo2 = new Equipo("Uniquindio", representante);
 
@@ -101,7 +101,7 @@ public class EquipoTest
             TipoTorneo.LOCAL
         );
 
-        var representante = new Representante("Robinson", "Pulgarin", "rpulgarin@email.com", "6067359300");
+        var representante = new Persona("Robinson", "Pulgarin", "rpulgarin@email.com", "6067359300");
         var equipo = new Equipo("Uniquindio", representante);
 
         assertThrows(Throwable.class, () -> torneo.registrarEquipo(equipo));
@@ -129,7 +129,7 @@ public class EquipoTest
             TipoTorneo.LOCAL
         );
 
-        var representante = new Representante("Robinson", "Pulgarin", "rpulgarin@email.com", "6067359300");
+        var representante = new Persona("Robinson", "Pulgarin", "rpulgarin@email.com", "6067359300");
         var equipo = new Equipo("Uniquindio", representante);
 
         assertThrows(Throwable.class, () -> torneo.registrarEquipo(equipo));
@@ -156,7 +156,7 @@ public class EquipoTest
             TipoTorneo.LOCAL
         );
 
-        var representante = new Representante("Robinson", "Pulgarin", "rpulgarin@email.com", "6067359300");
+        var representante = new Persona("Robinson", "Pulgarin", "rpulgarin@email.com", "6067359300");
         var equipo = new Equipo("Uniquindio", representante);
         var equipo2 = new Equipo("NuevoEquipo", representante);
 

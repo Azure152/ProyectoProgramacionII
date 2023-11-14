@@ -6,6 +6,7 @@ import java.util.LinkedList;
 import java.util.Optional;
 
 import co.edu.uniquindio.poo.torneodeportivo.participante.Equipo;
+import co.edu.uniquindio.poo.torneodeportivo.participante.Jugador;
 
 public class Torneo
 {
@@ -147,10 +148,9 @@ public class Torneo
      */
     public void registrarEquipo(Equipo equipo)
     {
-        assert this.buscarEquipo(equipo.nombre()).isEmpty();
+        assert this.buscarEquipo(equipo.getNombre()).isEmpty();
         assert this.equipos.size() < this.numeroMaximoParticipantes;
-        assert LocalDate.now().isEqual(this.fechaInicioInscripciones) || LocalDate.now().isAfter(this.fechaInicioInscripciones);
-        assert LocalDate.now().isBefore(this.fechaCierreInscripciones);
+        this.validarInscripcionesAbiertas();
         
         this.equipos.add(equipo);
     }
@@ -164,7 +164,57 @@ public class Torneo
      */
     public Optional<Equipo> buscarEquipo(String nombre)
     {
-        return this.equipos.stream().filter(e -> e.nombre().equalsIgnoreCase(nombre)).findAny();
+        return this.equipos.stream().filter(e -> e.getNombre().equalsIgnoreCase(nombre)).findAny();
+    }
+
+    /**
+     * registra un jugador en un equipo
+     * 
+     * @param equipo instancia de equipo en la que registrar
+     * @param jugador instancia de jugador a registrar
+     */
+    public void registrarJugador(Equipo equipo, Jugador jugador)
+    {
+        this.validarJugadorInexistente(jugador);
+        assert this.limiteEdad == 0 || jugador.calcularEdad() <= this.limiteEdad;
+        this.validarInscripcionesAbiertas();
+
+        equipo.registrarJugador(jugador);
+    }
+
+    /**
+     * registra un jugador en un equipo registrado usando el nombre
+     * 
+     * @param nombreEquipo nombre del equipo
+     * @param jugador instancia de jugador a registrar
+     */
+    public void registrarJugador(String nombreEquipo, Jugador jugador)
+    {
+        var equipo = this.buscarEquipo(nombreEquipo);
+
+        assert equipo.isPresent();
+
+        this.registrarJugador(equipo.get(), jugador);
+    }
+
+    /**
+     * valida que las inscripciones se encuentren abiertas
+     */
+    private void validarInscripcionesAbiertas()
+    {
+        assert LocalDate.now().isEqual(this.fechaInicioInscripciones) || LocalDate.now().isAfter(this.fechaInicioInscripciones);
+        assert LocalDate.now().isBefore(this.fechaCierreInscripciones);
+    }
+
+    /**
+     * valida que un jugador no se encuentre registrado
+     */
+    private void validarJugadorInexistente(Jugador jugador)
+    {
+        this.equipos.stream().iterator().forEachRemaining((e) -> {
+            assert ! e.jugadorExistente(jugador);
+            assert ! e.jugadorExistentePorCorreo(jugador.getEmail());
+        });
     }
 
     /**
