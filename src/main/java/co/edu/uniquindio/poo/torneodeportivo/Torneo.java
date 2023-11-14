@@ -1,6 +1,11 @@
 package co.edu.uniquindio.poo.torneodeportivo;
 
 import java.time.LocalDate;
+import java.util.Collection;
+import java.util.LinkedList;
+import java.util.Optional;
+
+import co.edu.uniquindio.poo.torneodeportivo.participante.Equipo;
 
 public class Torneo
 {
@@ -45,6 +50,11 @@ public class Torneo
     private final TipoTorneo tipoTorneo;
 
     /**
+     * equipos participantes/inscritos
+     */
+    private Collection<Equipo> equipos;
+
+    /**
      * crea una instancia de Torneo
      * 
      * @param nombre nombre del torneo
@@ -85,6 +95,7 @@ public class Torneo
         this.limiteEdad = limiteEdad;
         this.valorInscripcion = valorInscripcion;
         this.tipoTorneo = tipoTorneo;
+        this.equipos = new LinkedList<>();
     }
 
     /**
@@ -127,6 +138,33 @@ public class Torneo
         assert cierreInscripciones.isBefore(this.fechaInicioTorneo);
 
         this.fechaCierreInscripciones = cierreInscripciones;
+    }
+
+    /**
+     * registra un equipo al torneo
+     * 
+     * @param equipo equipo a registrar
+     */
+    public void registrarEquipo(Equipo equipo)
+    {
+        assert this.buscarEquipo(equipo.nombre()).isEmpty();
+        assert this.equipos.size() < this.numeroMaximoParticipantes;
+        assert LocalDate.now().isEqual(this.fechaInicioInscripciones) || LocalDate.now().isAfter(this.fechaInicioInscripciones);
+        assert LocalDate.now().isBefore(this.fechaCierreInscripciones);
+        
+        this.equipos.add(equipo);
+    }
+
+    /**
+     * busca un equipo usando el nombre
+     * 
+     * @param nombre nombre del equipo
+     * 
+     * @return un equipo coincidente
+     */
+    public Optional<Equipo> buscarEquipo(String nombre)
+    {
+        return this.equipos.stream().filter(e -> e.nombre().equalsIgnoreCase(nombre)).findAny();
     }
 
     /**
@@ -207,5 +245,15 @@ public class Torneo
     public TipoTorneo getTipoTorneo()
     {
         return tipoTorneo;
+    }
+
+    /**
+     * obtiene los equipos inscritos al torneo
+     * 
+     * @return equipos inscriptos
+     */
+    public Collection<Equipo> getEquipos()
+    {
+        return equipos;
     }
 }
