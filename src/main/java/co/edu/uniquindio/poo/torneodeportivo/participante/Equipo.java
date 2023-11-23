@@ -5,7 +5,7 @@ import java.util.LinkedList;
 
 import co.edu.uniquindio.poo.torneodeportivo.persona.Persona;
 
-public class Equipo
+public class Equipo implements Participante
 {
     /**
      * nombre del equipo
@@ -84,6 +84,14 @@ public class Equipo
     public String getNombre()
     {
         return this.nombre;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public String getNombreCompleto()
+    {
+        return this.getNombre();
     }
 
     /**

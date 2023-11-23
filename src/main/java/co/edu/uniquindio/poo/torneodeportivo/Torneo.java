@@ -2,11 +2,13 @@ package co.edu.uniquindio.poo.torneodeportivo;
 
 import java.time.LocalDate;
 import java.util.Collection;
+import java.util.Comparator;
 import java.util.LinkedList;
 import java.util.Optional;
 
 import co.edu.uniquindio.poo.torneodeportivo.participante.Equipo;
 import co.edu.uniquindio.poo.torneodeportivo.participante.Jugador;
+import co.edu.uniquindio.poo.torneodeportivo.participante.Participante;
 
 public class Torneo
 {
@@ -51,9 +53,14 @@ public class Torneo
     private final TipoTorneo tipoTorneo;
 
     /**
-     * equipos participantes/inscritos
+     * caracter del torneo
      */
-    private Collection<Equipo> equipos;
+    private final CaracterTorneo caracter;
+
+    /**
+     * equipos
+     */
+    private Collection<Participante> participantes;
 
     /**
      * crea una instancia de Torneo
@@ -74,7 +81,8 @@ public class Torneo
         byte numeroMaximoParticipantes,
         byte limiteEdad,
         int valorInscripcion,
-        TipoTorneo tipoTorneo
+        TipoTorneo tipoTorneo,
+        CaracterTorneo caracter
     ) {
         assert nombre != null;
         assert fechaInicioTorneo != null;
@@ -84,6 +92,7 @@ public class Torneo
         assert limiteEdad >= 0;
         assert valorInscripcion >= 0;
         assert tipoTorneo != null;
+        assert caracter != null;
         assert fechaInicioTorneo.isAfter(LocalDate.now());
         assert fechaInicioInscripciones.isBefore(fechaInicioTorneo);
         assert fechaCierreInscripciones.isAfter(fechaInicioInscripciones) && fechaCierreInscripciones.isBefore(fechaInicioTorneo);
@@ -96,7 +105,8 @@ public class Torneo
         this.limiteEdad = limiteEdad;
         this.valorInscripcion = valorInscripcion;
         this.tipoTorneo = tipoTorneo;
-        this.equipos = new LinkedList<>();
+        this.caracter = caracter;
+        this.participantes = new LinkedList<>();
     }
 
     /**
@@ -142,29 +152,37 @@ public class Torneo
     }
 
     /**
-     * registra un equipo al torneo
+     * registra un participante en el torneo
      * 
-     * @param equipo equipo a registrar
+     * @param equipo 
      */
-    public void registrarEquipo(Equipo equipo)
+    public void registrarParticipante(Participante participante)
     {
-        assert this.buscarEquipo(equipo.getNombre()).isEmpty();
-        assert this.equipos.size() < this.numeroMaximoParticipantes;
+        assert this.caracter.participanteValido(participante);
+        assert this.participanteInexistente(participante.getNombreCompleto());
+        assert this.getNumeroPartcipantes() < this.numeroMaximoParticipantes;
+
+        if (this.caracter.equals(CaracterTorneo.INDIVIDUAL)) {
+            Jugador jugador = (Jugador) participante;
+            assert this.limiteEdad == 0 || jugador.calcularEdad() < this.limiteEdad;
+            assert this.encontrarJugadorParticipantePorCorreo(jugador.getEmail()).isEmpty();
+        }
+
         this.validarInscripcionesAbiertas();
-        
-        this.equipos.add(equipo);
+
+        this.participantes.add(participante);
     }
 
     /**
-     * busca un equipo usando el nombre
+     * comprueba si un participante ya se encuentra registrado
      * 
-     * @param nombre nombre del equipo
+     * @param nombre nombre completo del participante
      * 
-     * @return un equipo coincidente
+     * @return un booleano que representa si el participante no se encuentra registrado
      */
-    public Optional<Equipo> buscarEquipo(String nombre)
+    private boolean participanteInexistente(String nombre)
     {
-        return this.equipos.stream().filter(e -> e.getNombre().equalsIgnoreCase(nombre)).findAny();
+        return this.participantes.stream().filter(p -> p.getNombreCompleto().equals(nombre)).findAny().isEmpty();
     }
 
     /**
@@ -175,6 +193,8 @@ public class Torneo
      */
     public void registrarJugador(Equipo equipo, Jugador jugador)
     {
+        assert this.caracter.equals(CaracterTorneo.GRUPAL);
+
         this.validarJugadorInexistente(jugador);
         assert this.limiteEdad == 0 || jugador.calcularEdad() <= this.limiteEdad;
         this.validarInscripcionesAbiertas();
@@ -190,11 +210,30 @@ public class Torneo
      */
     public void registrarJugador(String nombreEquipo, Jugador jugador)
     {
-        var equipo = this.buscarEquipo(nombreEquipo);
+        assert this.caracter.equals(CaracterTorneo.GRUPAL);
+
+        var equipo = this.participantes.stream().filter((p) -> {
+            return p.getNombreCompleto().equals(nombreEquipo) && p instanceof Equipo;
+        }).map(p -> (Equipo) p).findAny();
 
         assert equipo.isPresent();
 
         this.registrarJugador(equipo.get(), jugador);
+    }
+
+    /**
+     * encuentra un jugador registrado usando el correo (caracter INDIVIDUAL)
+     * 
+     * @param email direccion de correo electronico
+     */
+    private Optional<Jugador> encontrarJugadorParticipantePorCorreo(String email)
+    {
+        assert this.caracter.equals(CaracterTorneo.INDIVIDUAL);
+
+        return this.participantes.stream()
+            .filter(p -> p instanceof Jugador j && j.getEmail().equalsIgnoreCase(email))
+            .map(p -> (Jugador) p)
+            .findAny();
     }
 
     /**
@@ -208,13 +247,28 @@ public class Torneo
 
     /**
      * valida que un jugador no se encuentre registrado
+     * 
+     * @param jugador jugador a comprobar
      */
     private void validarJugadorInexistente(Jugador jugador)
     {
-        this.equipos.stream().iterator().forEachRemaining((e) -> {
-            assert ! e.jugadorExistente(jugador);
-            assert ! e.jugadorExistentePorCorreo(jugador.getEmail());
-        });
+        this.participantes.stream()
+            .filter(p -> p instanceof Equipo)
+            .map(p -> (Equipo) p)
+            .iterator().forEachRemaining((e) -> {
+                assert ! e.jugadorExistente(jugador);
+                assert ! e.jugadorExistentePorCorreo(jugador.getEmail());
+            });
+    }
+
+    /**
+     * obtiene la cantidad de participantes
+     * 
+     * @return cantidad de participantes registrados
+     */
+    public int getNumeroPartcipantes()
+    {
+        return this.participantes.size();
     }
 
     /**
@@ -302,8 +356,8 @@ public class Torneo
      * 
      * @return equipos inscriptos
      */
-    public Collection<Equipo> getEquipos()
+    public Collection<Participante> getParticipantes()
     {
-        return equipos;
+        return this.participantes.stream().sorted(Comparator.comparing(Participante::getNombreCompleto)).toList();
     }
 }

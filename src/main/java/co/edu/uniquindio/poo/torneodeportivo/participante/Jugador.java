@@ -5,7 +5,7 @@ import java.time.Period;
 
 import co.edu.uniquindio.poo.torneodeportivo.persona.Persona;
 
-public class Jugador extends Persona
+public class Jugador extends Persona implements Participante
 {
     /**
      * fecha de nacimiento
@@ -39,6 +39,14 @@ public class Jugador extends Persona
     public int calcularEdad()
     {
         return Period.between(this.fechaNacimiento, LocalDate.now()).getYears();
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public String getNombreCompleto()
+    {
+        return this.getNombre() + ' ' + this.getApellido();
     }
 
     /**

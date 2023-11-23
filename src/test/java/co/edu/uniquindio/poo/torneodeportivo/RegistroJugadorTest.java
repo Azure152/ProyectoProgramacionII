@@ -19,7 +19,7 @@ public class RegistroJugadorTest
     /**
      * instancia para el manejo de logs
      */
-    private static final Logger LOG = Logger.getLogger(EquipoTest.class.getName());
+    private static final Logger LOG = Logger.getLogger(RegistroJugadorTest.class.getName());
 
     /**
      * registrar un jugador desde equipo
@@ -62,10 +62,11 @@ public class RegistroJugadorTest
             (byte) 24,
             (byte) 18,
             (byte) 0,
-            TipoTorneo.LOCAL
+            TipoTorneo.LOCAL,
+            CaracterTorneo.GRUPAL
         );
 
-        torneo.registrarEquipo(equipo);
+        torneo.registrarParticipante(equipo);
 
         var resultado = new LinkedList<>();
         resultado.add(jugador);
@@ -96,10 +97,11 @@ public class RegistroJugadorTest
             (byte) 24,
             (byte) 0,
             (byte) 0,
-            TipoTorneo.LOCAL
+            TipoTorneo.LOCAL,
+            CaracterTorneo.GRUPAL
         );
 
-        torneo.registrarEquipo(equipo);
+        torneo.registrarParticipante(equipo);
 
         var resultado = new LinkedList<>();
         resultado.add(jugador);
@@ -130,10 +132,11 @@ public class RegistroJugadorTest
             (byte) 24,
             (byte) 18,
             (byte) 0,
-            TipoTorneo.LOCAL
+            TipoTorneo.LOCAL,
+            CaracterTorneo.GRUPAL
         );
 
-        torneo.registrarEquipo(equipo);
+        torneo.registrarParticipante(equipo);
 
         assertThrows(Throwable.class, () -> torneo.registrarJugador(equipo, jugador));
 
@@ -160,10 +163,11 @@ public class RegistroJugadorTest
             (byte) 24,
             (byte) 18,
             (byte) 0,
-            TipoTorneo.LOCAL
+            TipoTorneo.LOCAL,
+            CaracterTorneo.GRUPAL
         );
 
-        torneo.registrarEquipo(equipo);
+        torneo.registrarParticipante(equipo);
         torneo.setFechaCierreInscripciones(LocalDate.now().minusDays(1));
 
         assertThrows(Throwable.class, () -> torneo.registrarJugador(equipo, jugador));
@@ -211,10 +215,11 @@ public class RegistroJugadorTest
             (byte) 24,
             (byte) 18,
             (byte) 0,
-            TipoTorneo.LOCAL
+            TipoTorneo.LOCAL,
+            CaracterTorneo.GRUPAL
         );
 
-        torneo.registrarEquipo(equipo);
+        torneo.registrarParticipante(equipo);
         torneo.registrarJugador(equipo, jugador);
 
         assertThrows(Throwable.class, () -> torneo.registrarJugador(equipo, jugador2));
@@ -244,11 +249,12 @@ public class RegistroJugadorTest
             (byte) 24,
             (byte) 18,
             (byte) 0,
-            TipoTorneo.LOCAL
+            TipoTorneo.LOCAL,
+            CaracterTorneo.GRUPAL
         );
 
-        torneo.registrarEquipo(equipo);
-        torneo.registrarEquipo(equipo2);
+        torneo.registrarParticipante(equipo);
+        torneo.registrarParticipante(equipo2);
         torneo.registrarJugador(equipo, jugador);
 
         assertThrows(Throwable.class, () -> torneo.registrarJugador(equipo2, jugador2));
@@ -297,11 +303,12 @@ public class RegistroJugadorTest
             (byte) 24,
             (byte) 18,
             (byte) 0,
-            TipoTorneo.LOCAL
+            TipoTorneo.LOCAL,
+            CaracterTorneo.GRUPAL
         );
 
-        torneo.registrarEquipo(equipo);
-        torneo.registrarEquipo(equipo2);
+        torneo.registrarParticipante(equipo);
+        torneo.registrarParticipante(equipo2);
         torneo.registrarJugador(equipo, jugador);
 
         assertThrows(Throwable.class, () -> torneo.registrarJugador(equipo2, jugador2));
@@ -328,10 +335,11 @@ public class RegistroJugadorTest
             (byte) 24,
             (byte) 18,
             (byte) 0,
-            TipoTorneo.LOCAL
+            TipoTorneo.LOCAL,
+            CaracterTorneo.GRUPAL
         );
 
-        torneo.registrarEquipo(equipo);
+        torneo.registrarParticipante(equipo);
 
         assertThrows(Throwable.class, () -> torneo.registrarJugador(equipo, null));
 
@@ -355,7 +363,8 @@ public class RegistroJugadorTest
             (byte) 24,
             (byte) 18,
             (byte) 0,
-            TipoTorneo.LOCAL
+            TipoTorneo.LOCAL,
+            CaracterTorneo.GRUPAL
         );
 
         assertThrows(Throwable.class, () -> torneo.registrarJugador("", jugador));

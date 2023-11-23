@@ -35,18 +35,19 @@ public class EquipoTest
             (byte) 24,
             (byte) 0,
             (byte) 0,
-            TipoTorneo.LOCAL
+            TipoTorneo.LOCAL,
+            CaracterTorneo.GRUPAL
         );
 
         var representante = new Persona("Robinson", "Pulgarin", "rpulgarin@email.com", "6067359300");
         var equipo = new Equipo("Uniquindio", representante);
 
-        torneo.registrarEquipo(equipo);
+        torneo.registrarParticipante(equipo);
 
         var resultado = new LinkedList<Equipo>();
         resultado.add(equipo);
 
-        assertEquals(resultado, torneo.getEquipos());
+        assertEquals(resultado, torneo.getParticipantes());
 
         LOG.info("Fin de prueba registrarEquipo...");
     }
@@ -67,16 +68,17 @@ public class EquipoTest
             (byte) 24,
             (byte) 0,
             (byte) 0,
-            TipoTorneo.LOCAL
+            TipoTorneo.LOCAL,
+            CaracterTorneo.GRUPAL
         );
 
         var representante = new Persona("Robinson", "Pulgarin", "rpulgarin@email.com", "6067359300");
         var equipo = new Equipo("Uniquindio", representante);
         var equipo2 = new Equipo("Uniquindio", representante);
 
-        torneo.registrarEquipo(equipo);
+        torneo.registrarParticipante(equipo);
 
-        assertThrows(Throwable.class, () -> torneo.registrarEquipo(equipo2));
+        assertThrows(Throwable.class, () -> torneo.registrarParticipante(equipo2));
 
         LOG.info("Find de prueba: registrar un equipo con nombre repetido...");
     }
@@ -98,13 +100,14 @@ public class EquipoTest
             (byte) 24,
             (byte) 0,
             (byte) 0,
-            TipoTorneo.LOCAL
+            TipoTorneo.LOCAL,
+            CaracterTorneo.GRUPAL
         );
 
         var representante = new Persona("Robinson", "Pulgarin", "rpulgarin@email.com", "6067359300");
         var equipo = new Equipo("Uniquindio", representante);
 
-        assertThrows(Throwable.class, () -> torneo.registrarEquipo(equipo));
+        assertThrows(Throwable.class, () -> torneo.registrarParticipante(equipo));
 
         LOG.info("Fin de prueba: registrar equipo con inscripciones cerradas...");
     }
@@ -126,13 +129,14 @@ public class EquipoTest
             (byte) 24,
             (byte) 0,
             (byte) 0,
-            TipoTorneo.LOCAL
+            TipoTorneo.LOCAL,
+            CaracterTorneo.GRUPAL
         );
 
         var representante = new Persona("Robinson", "Pulgarin", "rpulgarin@email.com", "6067359300");
         var equipo = new Equipo("Uniquindio", representante);
 
-        assertThrows(Throwable.class, () -> torneo.registrarEquipo(equipo));
+        assertThrows(Throwable.class, () -> torneo.registrarParticipante(equipo));
 
         LOG.info("Fin de prueba: registrar equipo con inscripciones sin iniciar...");
     }
@@ -153,16 +157,17 @@ public class EquipoTest
             (byte) 1,
             (byte) 0,
             (byte) 0,
-            TipoTorneo.LOCAL
+            TipoTorneo.LOCAL,
+            CaracterTorneo.GRUPAL
         );
 
         var representante = new Persona("Robinson", "Pulgarin", "rpulgarin@email.com", "6067359300");
         var equipo = new Equipo("Uniquindio", representante);
         var equipo2 = new Equipo("NuevoEquipo", representante);
 
-        torneo.registrarEquipo(equipo);
+        torneo.registrarParticipante(equipo);
 
-        assertThrows(Throwable.class, () -> torneo.registrarEquipo(equipo2));
+        assertThrows(Throwable.class, () -> torneo.registrarParticipante(equipo2));
 
         LOG.info("Fin de prueba: registrar equipo excedente...");
     }

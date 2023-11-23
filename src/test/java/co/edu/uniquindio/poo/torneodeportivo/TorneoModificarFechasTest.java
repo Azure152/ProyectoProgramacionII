@@ -32,7 +32,8 @@ public class TorneoModificarFechasTest
             (byte) 24,
             (byte) 0,
             (byte) 0,
-            TipoTorneo.LOCAL
+            TipoTorneo.LOCAL,
+            CaracterTorneo.GRUPAL
         );
 
         assertDoesNotThrow(() -> torneo.setFechaInicioTorneo(LocalDate.now().plusMonths(6)));
@@ -57,7 +58,8 @@ public class TorneoModificarFechasTest
             (byte) 24,
             (byte) 0,
             (byte) 0,
-            TipoTorneo.LOCAL
+            TipoTorneo.LOCAL,
+            CaracterTorneo.GRUPAL
         );
 
         assertThrows(Throwable.class, () -> torneo.setFechaInicioTorneo(null));
@@ -82,7 +84,8 @@ public class TorneoModificarFechasTest
             (byte) 24,
             (byte) 0,
             (byte) 0,
-            TipoTorneo.LOCAL
+            TipoTorneo.LOCAL,
+            CaracterTorneo.GRUPAL
         );
 
         assertThrows(
@@ -109,7 +112,8 @@ public class TorneoModificarFechasTest
             (byte) 24,
             (byte) 0,
             (byte) 0,
-            TipoTorneo.LOCAL
+            TipoTorneo.LOCAL,
+            CaracterTorneo.GRUPAL
         );
 
         assertDoesNotThrow(() -> torneo.setFechaInicioInscripciones(LocalDate.now().plusMonths(2)));
@@ -134,7 +138,8 @@ public class TorneoModificarFechasTest
             (byte) 24,
             (byte) 0,
             (byte) 0,
-            TipoTorneo.LOCAL
+            TipoTorneo.LOCAL,
+            CaracterTorneo.GRUPAL
         );
 
         assertThrows(Throwable.class, () -> torneo.setFechaInicioInscripciones(null));
@@ -159,7 +164,8 @@ public class TorneoModificarFechasTest
             (byte) 24,
             (byte) 0,
             (byte) 0,
-            TipoTorneo.LOCAL
+            TipoTorneo.LOCAL,
+            CaracterTorneo.GRUPAL
         );
 
         assertThrows(
@@ -186,7 +192,8 @@ public class TorneoModificarFechasTest
             (byte) 24,
             (byte) 0,
             (byte) 0,
-            TipoTorneo.LOCAL
+            TipoTorneo.LOCAL,
+            CaracterTorneo.GRUPAL
         );
 
         assertDoesNotThrow(() -> torneo.setFechaCierreInscripciones(LocalDate.now().plusMonths(4)));
@@ -211,7 +218,8 @@ public class TorneoModificarFechasTest
             (byte) 24,
             (byte) 0,
             (byte) 0,
-            TipoTorneo.LOCAL
+            TipoTorneo.LOCAL,
+            CaracterTorneo.GRUPAL
         );
 
         assertThrows(Throwable.class, () -> torneo.setFechaCierreInscripciones(null));
@@ -236,7 +244,8 @@ public class TorneoModificarFechasTest
             (byte) 24,
             (byte) 0,
             (byte) 0,
-            TipoTorneo.LOCAL
+            TipoTorneo.LOCAL,
+            CaracterTorneo.GRUPAL
         );
 
         assertThrows(
@@ -264,7 +273,8 @@ public class TorneoModificarFechasTest
             (byte) 24,
             (byte) 0,
             (byte) 0,
-            TipoTorneo.LOCAL
+            TipoTorneo.LOCAL,
+            CaracterTorneo.GRUPAL
         );
 
         assertThrows(

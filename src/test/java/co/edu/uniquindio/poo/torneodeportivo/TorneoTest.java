@@ -31,7 +31,8 @@ public class TorneoTest
             (byte) 24,
             (byte) 0,
             (byte) 0,
-            TipoTorneo.LOCAL
+            TipoTorneo.LOCAL,
+            CaracterTorneo.GRUPAL
         );
 
         assertEquals("Copa Mundo", torneo.getNombre());
@@ -54,7 +55,17 @@ public class TorneoTest
     {
         LOG.info("inicio de prueba datos nulos...");
 
-        assertThrows(Throwable.class, () -> new Torneo(null, null, null, null, (byte) 24, (byte) 0, (byte) 0, TipoTorneo.LOCAL));
+        assertThrows(Throwable.class, () -> new Torneo(
+            null, 
+            null,
+            null,
+            null,
+            (byte) 24,
+            (byte) 0,
+            (byte) 0,
+            TipoTorneo.LOCAL,
+            CaracterTorneo.GRUPAL
+        ));
 
         LOG.info("Fin prueba de datos nulos...");
     }
@@ -76,7 +87,8 @@ public class TorneoTest
                 (byte) -24,
                 (byte) 0,
                 (byte) 0,
-                TipoTorneo.LOCAL
+                TipoTorneo.LOCAL,
+                CaracterTorneo.GRUPAL
             );
         });
 
@@ -100,7 +112,8 @@ public class TorneoTest
                 (byte) 24,
                 (byte) -1,
                 (byte) 0,
-                TipoTorneo.LOCAL
+                TipoTorneo.LOCAL,
+                CaracterTorneo.GRUPAL
             );
         });
 
@@ -124,7 +137,8 @@ public class TorneoTest
                 (byte) 24,
                 (byte) 0,
                 (byte) -1,
-                TipoTorneo.LOCAL
+                TipoTorneo.LOCAL,
+                CaracterTorneo.GRUPAL
             );
         });
 
@@ -148,7 +162,8 @@ public class TorneoTest
                 (byte) 24,
                 (byte) 0,
                 (byte) 0,
-                TipoTorneo.LOCAL
+                TipoTorneo.LOCAL,
+                CaracterTorneo.GRUPAL
             );
         });
 
@@ -172,7 +187,8 @@ public class TorneoTest
                 (byte) 24,
                 (byte) 0,
                 (byte) 0,
-                TipoTorneo.LOCAL
+                TipoTorneo.LOCAL,
+                CaracterTorneo.GRUPAL
             );
         });
 
@@ -196,7 +212,8 @@ public class TorneoTest
                 (byte) 24,
                 (byte) 0,
                 (byte) 0,
-                null
+                null,
+                CaracterTorneo.GRUPAL
             );
         });
 
