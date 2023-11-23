@@ -25,6 +25,8 @@ public class RegistrarParticipanteTest {
      */
     @Test
     public void registrarParticipanteTorneo() {
+        LOG.info("Inicio prueba: registrar un participante individual en un torneo individual...");
+
         var jugador = new Jugador("Christian", "Candela", "chrcandela@email.com", "6067431234", LocalDate.now().minusYears(15));
         var torneo = new Torneo(
             "Copa Mundo", 
@@ -41,6 +43,8 @@ public class RegistrarParticipanteTest {
         assertDoesNotThrow(() -> torneo.registrarParticipante(jugador));
 
         assertEquals(torneo.getParticipantes(), List.of(jugador));
+
+        LOG.info("Fin prueba: registrar un participante individual en un torneo individual...");
     }
 
     /**
@@ -49,6 +53,8 @@ public class RegistrarParticipanteTest {
      */
     @Test
     public void registrarParticipanteIndividualNombreRepetido() {
+        LOG.info("Inicio prueba: registrar un participante individual con nombre repetido en un torneo individual...");
+
         var jugador = new Jugador("Christian", "Candela", "chrcandela@email.com", "6067431234", LocalDate.now().minusYears(15));
         var jugador2 = new Jugador("Christian", "Candela", "ccandela@email.com", "6067431235", LocalDate.now().minusYears(15));
         var torneo = new Torneo(
@@ -66,6 +72,8 @@ public class RegistrarParticipanteTest {
         torneo.registrarParticipante(jugador);
 
         assertThrows(Throwable.class, () -> torneo.registrarParticipante(jugador2));
+
+        LOG.info("Fin prueba: registrar un participante individual con nombre repetido en un torneo individual...");
     }
 
     /**
@@ -73,6 +81,8 @@ public class RegistrarParticipanteTest {
      */
     @Test
     public void registrarParticipanteIndividualTorneoGrupal() {
+        LOG.info("Inicio prueba: registrar un participante individual en un torneo grupal...");
+
         var jugador = new Jugador("Christian", "Candela", "chrcandela@email.com", "6067431234", LocalDate.now().minusYears(15));
         var torneo = new Torneo(
             "Copa Mundo", 
@@ -87,6 +97,8 @@ public class RegistrarParticipanteTest {
         );
 
         assertThrows(Throwable.class, () -> torneo.registrarParticipante(jugador));
+
+        LOG.info("Fin prueba: registrar un participante individual en un torneo grupal...");
     }
 
     /**
@@ -94,6 +106,8 @@ public class RegistrarParticipanteTest {
      */
     @Test
     public void registrarEquipoTorneoIndividual() {
+        LOG.info("Inicio prueba: registrar un equipo en un torneo individual...");
+
         var representante = new Persona("Robinson", "Pulgarin", "rpulgarin@email.com", "6067359300");
         var equipo = new Equipo("Uniquindio", representante);
         var torneo = new Torneo(
@@ -109,6 +123,8 @@ public class RegistrarParticipanteTest {
         );
 
         assertThrows(Throwable.class, () -> torneo.registrarParticipante(equipo));
+
+        LOG.info("Fin prueba: registrar un equipo en un torneo individual...");
     }
 
     /**
@@ -117,6 +133,8 @@ public class RegistrarParticipanteTest {
      */
     @Test
     public void registrarParticipanteLimiteEdadSuperadoTorneoIndividual() {
+        LOG.info("Inicio prueba: registrar participantes que superen el limite de edad en un torneo individual...");
+
         var jugador = new Jugador("Christian", "Candela", "chrcandela@email.com", "6067431234", LocalDate.now().minusYears(15));
         var torneo = new Torneo(
             "Copa Mundo", 
@@ -131,6 +149,8 @@ public class RegistrarParticipanteTest {
         );
 
         assertThrows(Throwable.class, () -> torneo.registrarParticipante(jugador));
+
+        LOG.info("Fin prueba: registrar participantes que superen el limite de edad en un torneo individual...");
     }
 
     /**
