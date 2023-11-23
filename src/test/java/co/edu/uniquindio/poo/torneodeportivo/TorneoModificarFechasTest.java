@@ -31,7 +31,8 @@ public class TorneoModificarFechasTest
             LocalDate.now().plusMonths(3),
             (byte) 24,
             (byte) 0,
-            (byte) 0
+            (byte) 0,
+            TipoTorneo.LOCAL
         );
 
         assertDoesNotThrow(() -> torneo.setFechaInicioTorneo(LocalDate.now().plusMonths(6)));
@@ -55,7 +56,8 @@ public class TorneoModificarFechasTest
             LocalDate.now().plusMonths(3),
             (byte) 24,
             (byte) 0,
-            (byte) 0
+            (byte) 0,
+            TipoTorneo.LOCAL
         );
 
         assertThrows(Throwable.class, () -> torneo.setFechaInicioTorneo(null));
@@ -79,7 +81,8 @@ public class TorneoModificarFechasTest
             LocalDate.now().plusMonths(3),
             (byte) 24,
             (byte) 0,
-            (byte) 0
+            (byte) 0,
+            TipoTorneo.LOCAL
         );
 
         assertThrows(
@@ -105,7 +108,8 @@ public class TorneoModificarFechasTest
             LocalDate.now().plusMonths(3),
             (byte) 24,
             (byte) 0,
-            (byte) 0
+            (byte) 0,
+            TipoTorneo.LOCAL
         );
 
         assertDoesNotThrow(() -> torneo.setFechaInicioInscripciones(LocalDate.now().plusMonths(2)));
@@ -129,7 +133,8 @@ public class TorneoModificarFechasTest
             LocalDate.now().plusMonths(3),
             (byte) 24,
             (byte) 0,
-            (byte) 0
+            (byte) 0,
+            TipoTorneo.LOCAL
         );
 
         assertThrows(Throwable.class, () -> torneo.setFechaInicioInscripciones(null));
@@ -153,7 +158,8 @@ public class TorneoModificarFechasTest
             LocalDate.now().plusMonths(3),
             (byte) 24,
             (byte) 0,
-            (byte) 0
+            (byte) 0,
+            TipoTorneo.LOCAL
         );
 
         assertThrows(
@@ -179,7 +185,8 @@ public class TorneoModificarFechasTest
             LocalDate.now().plusMonths(3),
             (byte) 24,
             (byte) 0,
-            (byte) 0
+            (byte) 0,
+            TipoTorneo.LOCAL
         );
 
         assertDoesNotThrow(() -> torneo.setFechaCierreInscripciones(LocalDate.now().plusMonths(4)));
@@ -203,7 +210,8 @@ public class TorneoModificarFechasTest
             LocalDate.now().plusMonths(3),
             (byte) 24,
             (byte) 0,
-            (byte) 0
+            (byte) 0,
+            TipoTorneo.LOCAL
         );
 
         assertThrows(Throwable.class, () -> torneo.setFechaCierreInscripciones(null));
@@ -227,7 +235,8 @@ public class TorneoModificarFechasTest
             LocalDate.now().plusMonths(3),
             (byte) 24,
             (byte) 0,
-            (byte) 0
+            (byte) 0,
+            TipoTorneo.LOCAL
         );
 
         assertThrows(
@@ -254,7 +263,8 @@ public class TorneoModificarFechasTest
             LocalDate.now().plusMonths(3),
             (byte) 24,
             (byte) 0,
-            (byte) 0
+            (byte) 0,
+            TipoTorneo.LOCAL
         );
 
         assertThrows(
